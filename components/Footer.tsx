@@ -28,11 +28,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/learn" className="hover:text-white">
-                  Physician Specialties
-                </Link>
-              </li>
-              <li>
                 <Link href="/privacy" className="hover:text-white">
                   Privacy
                 </Link>

@@ -25,7 +25,7 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export const metadata: Metadata = {
-  title: "Find a Physician",
+  title: "Find an Orthopedic Surgeon",
   description: `Browse all ${verticalConfig.entityPlural.toLowerCase()} in the ${verticalConfig.name} directory.`,
   alternates: { canonical: "/directory" },
 };
@@ -72,7 +72,7 @@ export default async function DirectoryPage({
 
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900">Find a Physician</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">Find an Orthopedic Surgeon</h1>
         <div className="mb-4">
           <ShareButtons variant="compact" title={`Browse ${verticalConfig.name} Directory`} />
         </div>
@@ -80,7 +80,7 @@ export default async function DirectoryPage({
           <SearchBar variant="directory" regions={runtimeRegions.length > 0 ? runtimeRegions : undefined} />
         </div>
         <p className="text-gray-600 mb-8">
-          {total.toLocaleString("en-US")} physicians in our directory. Choose a state or province to browse.
+          {total.toLocaleString("en-US")} orthopedic surgeons in our directory. Choose a state or province to browse.
         </p>
         {sections.length === 0 ? (
           <p className="text-gray-500 text-center py-12">No regions available yet. Check back soon!</p>
@@ -129,7 +129,7 @@ export default async function DirectoryPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900">Find a Physician</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900">Find an Orthopedic Surgeon</h1>
       <div className="mb-4">
         <ShareButtons variant="compact" title={`Browse ${verticalConfig.name} Directory`} />
       </div>
@@ -147,8 +147,8 @@ export default async function DirectoryPage({
 
       <p className="text-gray-600 mb-4">
         {listings.length === 0
-          ? "No physicians"
-          : `Page ${page} — ${listings.length} ${listings.length === 1 ? "physician" : "physicians"}`}
+          ? "No orthopedic surgeons"
+          : `Page ${page} — ${listings.length} ${listings.length === 1 ? "orthopedic surgeon" : "orthopedic surgeons"}`}
         {" matching your filters"}.
       </p>
 
@@ -210,7 +210,7 @@ export default async function DirectoryPage({
 
       {listings.length === 0 ? (
         <p className="text-gray-500 text-center py-12">
-          No physicians found matching your criteria. Try broadening your search.
+          No orthopedic surgeons found matching your criteria. Try broadening your search.
         </p>
       ) : (
         <>

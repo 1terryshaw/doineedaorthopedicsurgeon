@@ -44,7 +44,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-2">3. No Patient or Health Information</h2>
           <p>
-            This is a directory of publicly listed physicians. <strong>We do not collect, store, or
+            This is a directory of publicly listed orthopedic surgeons. <strong>We do not collect, store, or
             display any patient information or protected health information (PHI).</strong> Listings
             are compiled from public government records (state medical boards and NPPES).
           </p>

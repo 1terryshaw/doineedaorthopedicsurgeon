@@ -1,23 +1,29 @@
 const verticalConfig = {
   inquiryNoEmailPolicy: "hide", // TDL #455 (empire default)
   // === BRANDING ===
-  name: "DoINeedAPhysician.com",
-  shortName: "DoINeedAPhysician",
-  tagline: "Find a physician near you",
-  description: "A public directory of licensed physicians compiled from state medical board records and NPPES. Search by specialty and location. Not a medical referral service — see our disclaimer.",
-  entity: "Physician",
-  entityPlural: "Physicians",
-  slug: "doineedaphysician",
-  domain: "www.doineedaphysician.com",
-  displayDomain: "doineedaphysician.com",
-  supportEmail: "hello@doineedaphysician.com",
+  name: "DoINeedAOrthopedicSurgeon.com",
+  shortName: "DoINeedAOrthopedicSurgeon",
+  tagline: "Find an orthopedic surgeon near you",
+  description: "A public directory of licensed orthopedic surgeons compiled from state medical board records and NPPES. Search by location. Not a medical referral service — see our disclaimer.",
+  entity: "Orthopedic Surgeon",
+  entityPlural: "Orthopedic Surgeons",
+  slug: "doineedaorthopedicsurgeon",
+  domain: "www.doineedaorthopedicsurgeon.com",
+  displayDomain: "doineedaorthopedicsurgeon.com",
+  supportEmail: "hello@doineedaorthopedicsurgeon.com",
   primaryColor: "#6B8F71",
   ctaColor: "#E17055",
   instagramHandle: "",
 
+  // === INDEXING GATE (Phase 5.1) ===
+  // true → robots.txt Disallow: / AND <meta name="robots" content="noindex,nofollow">
+  // on every page. Mirrors the doineedaphysician.com Phase 2c gate. Flip to false
+  // ONLY after the human disclaimer/TOS sign-off review pass (then resubmit sitemap to GSC).
+  indexingGated: true,
+
   // === ENTITY NOUNS ===
-  listingNoun: "physician",
-  listingNounPlural: "physicians",
+  listingNoun: "orthopedic surgeon",
+  listingNounPlural: "orthopedic surgeons",
 
   // === COLORS ===
   heroGradientFrom: "#6B8F71",
@@ -30,13 +36,13 @@ const verticalConfig = {
   supportedCountries: ["US", "CA"] as const,
 
   // === DATABASE ===
-  tablePrefix: "physician_",
+  tablePrefix: "orthopedic_surgeon_",
 
   // === BILLING ===
   siteforgeEnabled: true,
 
   // === TRIAGE ===
-  // Disabled for the physician vertical: a symptom/diagnosis quiz would constitute
+  // Disabled for the orthopedic surgeon vertical: a symptom/diagnosis quiz would constitute
   // medical advice (see app/disclaimer/page.tsx — "Not Medical Advice"). Directory only.
   triageEnabled: false,
   triageType: "quiz",
@@ -56,35 +62,21 @@ const verticalConfig = {
   },
   triageDisclaimer: "This directory provides listing information only and is not medical advice, diagnosis, or treatment. If you are experiencing a medical emergency, call 911.",
 
-  // === SECTION A: PHYSICIAN SPECIALTY TILES (Phase 2d) ===
-  // The 8 internal specialty tiles. Each maps to a derived_taxonomy NUCC-prefix
-  // group (see therapist-reclassify/.../07-tile-prefix-map.md and the
-  // physician_specialty_* RPCs). Order is the approved Section-A order; cardiology
-  // breaks out of internal medicine (Option A). Psychiatry (2084P*, excluded from
-  // the move) and Dermatology (own directory — Section B) are intentionally NOT
-  // tiles here. Homepage links these to /specialty/<slug>, not /directory.
-  // Slugs use practitioner form (Part 1.5) to match tile labels + search intent
-  // ("cardiologist near me" >> "cardiology near me"). family-medicine and
-  // internal-medicine keep specialty form (Option B — natural search terms).
-  categoryLabels: [
-    { slug: "family-medicine", label: "Family Medicine", emoji: "🩺", description: "Primary care for patients of all ages" },
-    { slug: "internal-medicine", label: "Internal Medicine", emoji: "🫀", description: "Adult primary and complex chronic care" },
-    { slug: "pediatrician", label: "Pediatrician", emoji: "🧒", description: "Medical care for infants, children, and adolescents" },
-    { slug: "obgyn", label: "OB/GYN", emoji: "🤰", description: "Obstetrics, gynecology, and women's health" },
-    { slug: "cardiologist", label: "Cardiologist", emoji: "❤️", description: "Heart and cardiovascular conditions" },
-    { slug: "orthopedic-surgeon", label: "Orthopedic Surgeon", emoji: "🦴", description: "Bones, joints, and musculoskeletal care" },
-    { slug: "general-surgeon", label: "Surgeon", emoji: "🏥", description: "General surgical evaluation and procedures" },
-    { slug: "neurologist", label: "Neurologist", emoji: "⚡", description: "Brain, spine, and nervous system conditions" },
-  ],
+  // === SECTION A: SPECIALTY TILES — INTENTIONALLY EMPTY (single-specialty site) ===
+  // DoINeedAOrthopedicSurgeon.com is a single-specialty directory; there is no
+  // "browse by specialty" grid. Empty array also keeps /specialty out of the
+  // sitemap (app/sitemap/[id]/route.ts iterates this) and the /directory
+  // listing_type filter (lib/constants.ts → LISTING_TYPES). Multi-specialty
+  // browsing lives on the parent hub, doineedaphysician.com.
+  categoryLabels: [] as { slug: string; label: string; emoji: string; description: string }[],
 
-  // === SECTION B: RELATED SPECIALISTS (external cross-links, Phase 2d) ===
-  // Specialties that have their OWN empire directories. Rendered as external
-  // cards (target=_blank rel=noopener) on the homepage under "Related specialists".
+  // === SECTION B: RELATED SPECIALISTS (external cross-links) ===
+  // Parent physician hub + musculoskeletal-adjacent empire directories. Rendered
+  // as external cards (target=_blank rel=noopener) on the homepage.
   relatedSpecialists: [
-    { label: "Therapist", description: "Mental health, counseling, and talk therapy", url: "https://doineedatherapist.org" },
-    { label: "Dermatologist", description: "Skin, hair, and nail conditions", url: "https://doineedadermatologist.com" },
+    { label: "Physiotherapist", description: "Rehabilitation and movement therapy", url: "https://doineedaphysiotherapist.com" },
     { label: "Chiropractor", description: "Spinal alignment and musculoskeletal therapy", url: "https://doineedachiropractor.com" },
-    { label: "Optometrist", description: "Eye exams and vision care", url: "https://doineedanoptometrist.com" },
+    { label: "All Physicians", description: "The full physician directory — every medical specialty", url: "https://doineedaphysician.com" },
   ],
 
   // === NATIONAL REGIONS ===
@@ -243,31 +235,30 @@ const verticalConfig = {
   cluster: "B",
   crossReferrals: [
     { name: 'Not Sure Which Pro?', url: 'https://doineedapro.com', description: 'Free AI triage — tell us your problem, we\'ll tell you which type of pro to call' },
-    { name: "Find a Therapist", url: "https://doineedatherapist.org", pathPattern: "/{city}" },
+    { name: "Find Any Physician", url: "https://doineedaphysician.com", pathPattern: "/{city}" },
     { name: "Find a Physiotherapist", url: "https://doineedaphysiotherapist.com", pathPattern: "/{city}" },
-    { name: "Find a Naturopath", url: "https://doineedanaturopath.com", pathPattern: "/{city}" },
   ],
 
   // === FAQs ===
   faqs: [
     {
       question: "Is this a medical referral service?",
-      answer: "No. DoINeedAPhysician.com is a public directory compiled from state medical board records and NPPES. Inclusion is not an endorsement or referral, and we do not vet or rank practitioners. Always verify a physician's current license and credentials directly with the relevant state medical board."
+      answer: "No. DoINeedAOrthopedicSurgeon.com is a public directory compiled from state medical board records and NPPES. Inclusion is not an endorsement or referral, and we do not vet or rank practitioners. Always verify an orthopedic surgeon's current license and credentials directly with the relevant state medical board."
     },
     {
       question: "Where does the listing information come from?",
       answer: "Listings are sourced from public, government-maintained records: the Medical Board of California / California Department of Consumer Affairs and the National Plan and Provider Enumeration System (NPPES) from the Centers for Medicare & Medicaid Services. No patient information is collected or displayed."
     },
     {
-      question: "Do the specialties shown mean a physician is board certified?",
-      answer: "Not necessarily. Specialty designations reflect taxonomy codes in licensee records and do not represent board certification unless explicitly stated. Verify board certification with the American Board of Medical Specialties (abms.org) or the relevant specialty board."
+      question: "Does a listing mean an orthopedic surgeon is board certified?",
+      answer: "Not necessarily. Specialty designations reflect taxonomy codes in licensee records and do not represent board certification unless explicitly stated. Verify board certification with the American Board of Orthopaedic Surgery (abos.org) or the American Board of Medical Specialties (abms.org)."
     },
     {
       question: "How current is the license and contact information?",
-      answer: "Records may be incomplete or outdated. License status, location, and contact details can change after our last data refresh. Always confirm current details with the physician's office and the state medical board before relying on them."
+      answer: "Records may be incomplete or outdated. License status, location, and contact details can change after our last data refresh. Always confirm current details with the orthopedic surgeon's office and the state medical board before relying on them."
     },
     {
-      question: "I'm a physician — how do I claim, correct, or remove my listing?",
+      question: "I'm an orthopedic surgeon — how do I claim, correct, or remove my listing?",
       answer: "Click 'Claim Your Listing' on your listing page and verify ownership with your professional email, or contact us via the contact page. Claiming and corrections are free, and we respond to verified removal requests within 7 business days."
     },
     {
@@ -285,7 +276,7 @@ const verticalConfig = {
     heroPattern: 'dots' as const,
     loadingMessages: [
       'Checking the directory...',
-      'Looking up physicians...',
+      'Looking up orthopedic surgeons...',
       'Gathering listings...',
       'Almost there...',
       'Loading results...',

@@ -4,7 +4,7 @@ import verticalConfig from "@/lib/vertical.config";
 export const metadata: Metadata = {
   title: "Disclaimer & Terms of Use",
   description:
-    "Disclaimer and terms of use for DoINeedAPhysician.com — a public physician directory. Not a medical referral service and not medical advice.",
+    "Disclaimer and terms of use for DoINeedAOrthopedicSurgeon.com — a public orthopedic surgeon directory. Not a medical referral service and not medical advice.",
   alternates: { canonical: "/disclaimer" },
 };
 
@@ -15,7 +15,7 @@ export default function DisclaimerPage() {
 
       <h2 className="text-xl font-semibold text-gray-900 mt-8 mb-2">Not a Medical Referral Service</h2>
       <p className="text-gray-700 leading-relaxed">
-        DoINeedAPhysician.com is a public directory of licensed physicians compiled from publicly
+        DoINeedAOrthopedicSurgeon.com is a public directory of licensed orthopedic surgeons compiled from publicly
         available state medical board records and the National Plan and Provider Enumeration System
         (NPPES). Inclusion in this directory does not constitute an endorsement, recommendation, or
         referral. We do not vet, evaluate, or verify the quality, competence, or current status of
@@ -25,7 +25,7 @@ export default function DisclaimerPage() {
       <h2 className="text-xl font-semibold text-gray-900 mt-8 mb-2">Not Medical Advice</h2>
       <p className="text-gray-700 leading-relaxed">
         This website provides directory information only. Nothing on this site constitutes medical
-        advice, diagnosis, or treatment. Always seek the advice of a qualified physician or other
+        advice, diagnosis, or treatment. Always seek the advice of a qualified orthopedic surgeon or other
         healthcare provider with any questions you may have regarding a medical condition. Never
         disregard professional medical advice or delay seeking it because of information found on
         this site.
@@ -66,10 +66,10 @@ export default function DisclaimerPage() {
       </p>
 
       <h2 className="text-xl font-semibold text-gray-900 mt-8 mb-2">
-        Physician Listing Claims &amp; Corrections
+        Orthopedic Surgeon Listing Claims &amp; Corrections
       </h2>
       <p className="text-gray-700 leading-relaxed">
-        Physicians and their authorized representatives may claim, correct, update, or request
+        Orthopedic Surgeons and their authorized representatives may claim, correct, update, or request
         removal of their listing at no cost. Use the &ldquo;Claim Your Listing&rdquo; link or contact
         us via the contact page. We will respond to verified removal requests within 7 business days.
       </p>
@@ -88,12 +88,12 @@ export default function DisclaimerPage() {
       </h2>
       <p className="text-gray-700 leading-relaxed">
         Use of this directory does not create any practitioner-patient relationship between you and
-        any physician listed, nor between you and DoINeedAPhysician.com.
+        any orthopedic surgeon listed, nor between you and DoINeedAOrthopedicSurgeon.com.
       </p>
 
       <h2 className="text-xl font-semibold text-gray-900 mt-8 mb-2">Limitation of Liability</h2>
       <p className="text-gray-700 leading-relaxed">
-        DoINeedAPhysician.com and its operators are not liable for any decisions made based on
+        DoINeedAOrthopedicSurgeon.com and its operators are not liable for any decisions made based on
         information found on this site. Use of this directory is at your own risk.
       </p>
 

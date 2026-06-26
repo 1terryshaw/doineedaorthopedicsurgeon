@@ -26,10 +26,10 @@ export default function TermsPage() {
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-2">2. Description of Service</h2>
           <p>
-            {verticalConfig.name} is a public directory of licensed physicians compiled from state
+            {verticalConfig.name} is a public directory of licensed orthopedic surgeons compiled from state
             medical board records and the National Plan and Provider Enumeration System (NPPES). It
             is not a medical referral service and does not provide medical advice. We offer free and
-            paid listing tiers for physician practices.
+            paid listing tiers for orthopedic surgeon practices.
           </p>
         </section>
 
@@ -37,8 +37,8 @@ export default function TermsPage() {
           <h2 className="text-lg font-semibold text-gray-900 mb-2">3. Not Medical Advice</h2>
           <p>
             The Service provides directory information only. Nothing on this site constitutes medical
-            advice, diagnosis, or treatment, and inclusion of a physician is not an endorsement or
-            referral. Always consult a qualified healthcare provider, and verify any physician&apos;s
+            advice, diagnosis, or treatment, and inclusion of an orthopedic surgeon is not an endorsement or
+            referral. Always consult a qualified healthcare provider, and verify any orthopedic surgeon&apos;s
             current license directly with the relevant state medical board. If you are experiencing a
             medical emergency, call 911. See our{" "}
             <a href="/disclaimer" className="underline">full disclaimer</a>.
@@ -89,7 +89,7 @@ export default function TermsPage() {
             The Service is provided &ldquo;as is&rdquo; without warranties of any kind. Smart
             Website Management shall not be liable for any indirect, incidental, or consequential
             damages arising from your use of the Service. We do not guarantee the qualifications,
-            competence, or suitability of any listed physician.
+            competence, or suitability of any listed orthopedic surgeon.
           </p>
         </section>
 

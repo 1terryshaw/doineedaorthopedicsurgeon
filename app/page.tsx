@@ -6,7 +6,6 @@ import ShareButtons from "@/components/pizzazz/ShareButtons";
 import FadeIn from "@/components/pizzazz/FadeIn";
 import { BrowseByArea } from "@/components/browse-by-area";
 import { websiteSearchSchema } from "@/lib/seo";
-import { getSpecialtyCounts } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -15,10 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const fmt = (n: number) => new Intl.NumberFormat("en-US").format(n);
-
 export default async function HomePage() {
-  const counts = await getSpecialtyCounts();
   return (
     <>
       <script
@@ -46,10 +42,10 @@ export default async function HomePage() {
         </div>
         <div className="max-w-3xl mx-auto text-center text-white relative">
           <h1 className="text-3xl md:text-5xl font-bold mb-3 animate-fade-up">
-            Find a Physician Near You
+            Find an Orthopedic Surgeon Near You
           </h1>
           <p className="text-lg md:text-xl opacity-90 mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            Search a public directory of licensed physicians by specialty and location
+            Search a public directory of licensed orthopedic surgeons by location
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -57,13 +53,13 @@ export default async function HomePage() {
               className="px-8 py-3 rounded-lg font-semibold text-white transition-colors text-center"
               style={{ backgroundColor: verticalConfig.ctaColor }}
             >
-              Find a Physician &rarr;
+              Find an Orthopedic Surgeon &rarr;
             </Link>
             <Link
               href="/directory"
               className="px-8 py-3 border-2 border-white rounded-lg font-semibold text-white hover:bg-white/10 transition-colors text-center"
             >
-              Browse Physicians
+              Browse Orthopedic Surgeons
             </Link>
           </div>
           {/* Trust badges */}
@@ -89,40 +85,9 @@ export default async function HomePage() {
         <ShareButtons variant="compact" title={`${verticalConfig.name} — ${verticalConfig.tagline}`} />
       </div>
 
-      {/* Section A — Browse by specialty (internal /specialty/<slug> tiles).
-          Counts render dynamically from physician_specialty_counts(); tiles always
-          link to /specialty/<slug> (never a dead end — empty-state handled there). */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold mb-2 text-center text-gray-900">
-            Browse by Specialty
-          </h2>
-          <p className="text-center text-gray-500 mb-8 text-sm">
-            Find physicians by their medical specialty
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {verticalConfig.categoryLabels.map((cat) => {
-              const n = counts[cat.slug] ?? 0;
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/specialty/${cat.slug}`}
-                  className="block p-5 bg-white border rounded-xl text-center card-lift"
-                >
-                  <span className="text-3xl block mb-2">{cat.emoji}</span>
-                  <span className="font-semibold text-gray-900 text-sm">{cat.label}</span>
-                  <span className="block text-xs text-gray-500 mt-1 line-clamp-2">
-                    {cat.description}
-                  </span>
-                  <span className="block text-xs font-medium mt-2 text-[#3B82F6]">
-                    {n > 0 ? `${fmt(n)} listed` : "Browse →"}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Section A (Browse by Specialty) intentionally removed — this is a
+          single-specialty orthopedic surgeon directory. Multi-specialty browsing
+          lives on the parent hub (doineedaphysician.com), linked in Section B below. */}
 
       {/* Section B — Related specialists (external empire directories). */}
       <section className="py-12 px-4 bg-gray-50 border-y">
@@ -160,7 +125,7 @@ export default async function HomePage() {
       {/* Browse by Area (replaces LocationPicker — TDL #138) */}
       <FadeIn as="div" delay={100}>
         <BrowseByArea
-          vertical="physician"
+          vertical="orthopedic-surgeon"
           accentTextClass="text-[#3B82F6] hover:text-[#306bca]"
         />
       </FadeIn>

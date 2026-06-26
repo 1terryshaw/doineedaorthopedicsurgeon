@@ -8,6 +8,11 @@ import EmergencyBanner from "@/components/EmergencyBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Phase 5.1 indexing gate — noindex,nofollow on every page until human sign-off
+  // (see verticalConfig.indexingGated + app/robots.ts). Flip the flag to re-enable.
+  ...(verticalConfig.indexingGated
+    ? { robots: { index: false, follow: false } }
+    : {}),
   title: {
     default: verticalConfig.name,
     template: `%s | ${verticalConfig.name}`,

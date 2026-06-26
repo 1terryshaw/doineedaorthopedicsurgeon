@@ -1,5 +1,5 @@
 import verticalConfig from "@/lib/vertical.config";
-import { getListingsRange, supabaseAdmin } from "@/lib/supabase";
+import { getListingsRange, supabaseAdmin, LISTINGS_TABLE } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -14,7 +14,6 @@ const STATIC_ENTRIES: { path: string; changefreq: string; priority: string }[] =
   { path: "/pricing", changefreq: "weekly", priority: "0.7" },
   { path: "/terms", changefreq: "monthly", priority: "0.3" },
   { path: "/privacy", changefreq: "monthly", priority: "0.3" },
-  { path: "/learn", changefreq: "weekly", priority: "0.7" },
 ];
 
 function escapeXml(s: string): string {
@@ -60,17 +59,14 @@ export async function GET(
     for (const e of STATIC_ENTRIES) {
       parts.push(urlEntry(`${baseUrl}${e.path}`, now, e.changefreq, e.priority));
     }
-    // Specialty hub pages (/specialty/<slug>) — Part 1.5.
-    for (const cat of verticalConfig.categoryLabels) {
-      parts.push(urlEntry(`${baseUrl}/specialty/${cat.slug}`, now, "weekly", "0.7"));
-    }
+    // Single-specialty site: no /specialty/<slug> hub pages.
     for (const region of verticalConfig.regions) {
       parts.push(urlEntry(`${baseUrl}/${region.slug}`, now, "daily", "0.8"));
     }
     // City pages (/{PROV}/{city}) — CA only. F-α.3 sweep.
     // Inline distinct query: ~50-150 pairs per repo, well below chunk capacity.
     const { data: cityRows } = await supabaseAdmin
-      .from("physician_listings")
+      .from(LISTINGS_TABLE)
       .select("province_state, region_slug")
       .eq("country", "CA")
       .not("province_state", "is", null)
