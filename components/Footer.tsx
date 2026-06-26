@@ -87,6 +87,16 @@ export default function Footer() {
 
         {/* Disclaimer */}
         <div className="border-t border-gray-800 mt-8 pt-8">
+          <p className="text-center mb-4">
+            <a
+              href="https://doineedaphysician.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-gray-400 hover:text-white"
+            >
+              &larr; Browse all medical specialists at doineedaphysician.com
+            </a>
+          </p>
           <p className="text-xs text-gray-500 leading-relaxed mb-4 text-center">
             {verticalConfig.triageDisclaimer}
           </p>

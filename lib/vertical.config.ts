@@ -74,9 +74,9 @@ const verticalConfig = {
   // Parent physician hub + musculoskeletal-adjacent empire directories. Rendered
   // as external cards (target=_blank rel=noopener) on the homepage.
   relatedSpecialists: [
-    { label: "Physiotherapist", description: "Rehabilitation and movement therapy", url: "https://doineedaphysiotherapist.com" },
+    { label: "Physiotherapist", description: "Post-surgery rehab and movement recovery", url: "https://doineedaphysiotherapist.com" },
     { label: "Chiropractor", description: "Spinal alignment and musculoskeletal therapy", url: "https://doineedachiropractor.com" },
-    { label: "All Physicians", description: "The full physician directory — every medical specialty", url: "https://doineedaphysician.com" },
+    { label: "Massage Therapist", description: "Musculoskeletal pain management and recovery", url: "https://doineedamassagetherapist.com" },
   ],
 
   // === NATIONAL REGIONS ===
