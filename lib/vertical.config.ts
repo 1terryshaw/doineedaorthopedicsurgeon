@@ -8,7 +8,7 @@ const verticalConfig = {
   entity: "Orthopedic Surgeon",
   entityPlural: "Orthopedic Surgeons",
   slug: "doineedaorthopedicsurgeon",
-  domain: "www.doineedaorthopedicsurgeon.com",
+  domain: "doineedaorthopedicsurgeon.com",
   displayDomain: "doineedaorthopedicsurgeon.com",
   supportEmail: "hello@doineedaorthopedicsurgeon.com",
   primaryColor: "#6B8F71",
