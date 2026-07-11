@@ -52,8 +52,10 @@ export default async function CityPage({ params }: Props) {
 
   const cityData = getCityBySlug(region, city);
   const listings = await getListingsByCity(region, city);
-  // OR-gate: render if the pair is in CITIES OR has DB listings; else 404.
-  if (!cityData && listings.length === 0) notFound();
+  // Zero-listing guard: a city page with no listings must NOT return 200 — even
+  // if the (province, slug) pair is in the inherited CA CITIES constant. Empty =
+  // 404, never an indexable shell. (Was an OR-gate that let CITIES cities 200.)
+  if (listings.length === 0) notFound();
 
   const cityName = cityData?.name ?? deriveCityName(region, city, listings[0]?.city);
   const provinceName = PROVINCES[region.toUpperCase()] ?? region;
