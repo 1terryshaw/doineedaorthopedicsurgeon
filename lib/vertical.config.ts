@@ -68,6 +68,7 @@ const verticalConfig = {
   // sitemap (app/sitemap/[id]/route.ts iterates this) and the /directory
   // listing_type filter (lib/constants.ts → LISTING_TYPES). Multi-specialty
   // browsing lives on the parent hub, doineedaphysician.com.
+  showSpecialtyFilter: false, // TDL #980 — listing_type data gap; dropdown hidden until enrichment
   categoryLabels: [] as { slug: string; label: string; emoji: string; description: string }[],
 
   // === SECTION B: RELATED SPECIALISTS (external cross-links) ===
