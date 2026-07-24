@@ -69,6 +69,7 @@ async function renderSitemap(
       .from(LISTINGS_TABLE)
       .select("province_state, region_slug")
       .eq("country", "CA")
+      .neq("is_published", false)
       .not("province_state", "is", null)
       .not("region_slug", "is", null)
       .limit(1000000);
