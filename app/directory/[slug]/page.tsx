@@ -108,6 +108,16 @@ export default async function ListingPage({ params }: Props) {
     ? listing.subscription_tier.charAt(0).toUpperCase() + listing.subscription_tier.slice(1)
     : null;
 
+  // TDL #849 geo block — emit a geo point ONLY at street precision (geo_precision_m <= 50);
+  // finite numeric coords, never 0,0; failing rows emit the JSON-LD unchanged. @type preserved, no map.
+  const geoLat = Number((listing as { latitude?: number | string | null }).latitude);
+  const geoLng = Number((listing as { longitude?: number | string | null }).longitude);
+  const geoPrec = (listing as { geo_precision_m?: number | null }).geo_precision_m;
+  const emitGeo =
+    geoPrec != null && geoPrec <= 50 &&
+    Number.isFinite(geoLat) && Number.isFinite(geoLng) &&
+    !(geoLat === 0 && geoLng === 0);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["Physician", "MedicalBusiness"],
@@ -121,6 +131,13 @@ export default async function ListingPage({ params }: Props) {
       addressRegion: listing.province_state,
       addressCountry: listing.country || "CA",
     },
+    ...(emitGeo && {
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: geoLat,
+        longitude: geoLng,
+      },
+    }),
     ...(listing.google_rating && {
       aggregateRating: {
         "@type": "AggregateRating",
