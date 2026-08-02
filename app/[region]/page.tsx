@@ -5,10 +5,14 @@ import { getListingsByProvincePaged, getRegionTotal, REGION_PAGE_SIZE } from "@/
 import ListingCard from "@/components/ListingCard";
 import Pagination from "@/components/Pagination";
 import ShareButtons from "@/components/pizzazz/ShareButtons";
-import { regionBreadcrumbSchema, regionCollectionPageSchema } from "@/lib/seo";
+import FaqSection from "@/components/FaqSection";
+import { regionBreadcrumbSchema, regionCollectionPageSchema, localizeFaqs } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
+const MEDICAL_DISCLAIMER =
+  "The information here is for educational purposes only and is not medical advice. Consult a licensed healthcare provider about your specific situation.";
 
 interface Props {
   params: Promise<{ region: string }>;
@@ -86,6 +90,8 @@ export default async function RegionPage({ params, searchParams }: Props) {
       <p className="text-xs text-gray-400 mt-12 text-center leading-relaxed">
         {verticalConfig.triageDisclaimer}
       </p>
+
+      <FaqSection faqs={localizeFaqs(verticalConfig.faqs, regionData.label)} disclaimer={MEDICAL_DISCLAIMER} />
     </div>
   );
 }

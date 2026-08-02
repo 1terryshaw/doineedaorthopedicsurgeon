@@ -21,9 +21,15 @@ import { canonical } from "@/lib/vertical-canonical";
 import ListingGallery from "@/components/ListingGallery";
 import TierBadge from "@/components/TierBadge";
 import ReviewShowcase from "@/components/ReviewShowcase";
+import FaqSection from "@/components/FaqSection";
+import { detailBreadcrumbSchema, localizeFaqs, OG_DEFAULT_IMAGE } from "@/lib/seo";
+import { getRegionBySlug } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
+const MEDICAL_DISCLAIMER =
+  "The information here is for educational purposes only and is not medical advice. Consult a licensed healthcare provider about your specific situation.";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -45,6 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: listing.name,
     description: listing.short_description || listing.description,
     alternates: { canonical: `/directory/${slug}` },
+    openGraph: { images: [OG_DEFAULT_IMAGE] },
   };
 }
 
@@ -165,11 +172,26 @@ export default async function ListingPage({ params }: Props) {
     ...(sameAsLinks.length > 0 && { sameAs: sameAsLinks }),
 };
 
+  // Breadcrumb: Home → city hub (only when the listing's city resolves to a
+  // region hub that 200s), then the listing itself. Drop the hub level if
+  // unresolvable so the trail never carries a broken URL.
+  const cityRegion = listing.region_slug ? getRegionBySlug(listing.region_slug) : null;
+  const breadcrumbTrail = [
+    { name: "Home", path: "/" },
+    ...(cityRegion ? [{ name: cityRegion.name, path: `/${cityRegion.slug}` }] : []),
+    { name: listing.name, path: `/directory/${listing.slug}` },
+  ];
+  const breadcrumbLd = detailBreadcrumbSchema(breadcrumbTrail);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <div className="max-w-5xl mx-auto px-4 py-12">
         <Link
@@ -435,6 +457,7 @@ export default async function ListingPage({ params }: Props) {
           {verticalConfig.triageDisclaimer}
         </p>
       </div>
+      <FaqSection faqs={localizeFaqs(verticalConfig.faqs, listing.city)} disclaimer={MEDICAL_DISCLAIMER} />
       <UpgradeModal
         listingSlug={listing.slug}
         priceIds={{
