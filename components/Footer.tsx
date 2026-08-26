@@ -34,6 +34,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/data-attribution" className="hover:text-white">
+                  Data Attribution
+                </Link>
+              </li>
+              <li>
                 <Link href="/terms" className="hover:text-white">
                   Terms
                 </Link>
