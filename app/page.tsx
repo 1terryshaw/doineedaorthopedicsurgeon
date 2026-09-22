@@ -5,12 +5,21 @@ import PersonalityBadge from "@/components/pizzazz/PersonalityBadge";
 import FadeIn from "@/components/pizzazz/FadeIn";
 import { BrowseByArea } from "@/components/browse-by-area";
 import RegionHub, { type HubSection, type HubRegion } from "@/components/RegionHub";
-import { getRegionCounts } from "@/lib/supabase";
+import { getRegionCountsCached } from "@/lib/supabase";
 import { getRegionByProvinceCode, countryOfProvinceCode } from "@/lib/constants";
 import { websiteSearchSchema } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
+// ISR (donor v16.25, TDL #1244). This page was `force-dynamic`, so every
+// request re-rendered it and any blip on the shared Supabase instance became a
+// user-visible 500 on the most valuable page of the site. It now renders from
+// cache and revalidates hourly; a failed revalidation serves the last good
+// render instead of an error.
+//
+// The reads go through supabaseCached, NOT supabaseAdmin. `revalidate` ALONE
+// does nothing here: a no-store fetch in the render keeps the route dynamic and
+// the conversion is silently inert.
+export const revalidate = 3600;
+export const fetchCache = "default-no-store";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -30,7 +39,7 @@ export default async function HomePage() {
   // handful exist fleet-wide) must not mint a SECOND chip in the other section.
   // The CODE decides the country, because the code is what picks the hub.
   const bbaByCode = new Map<string, { country: "CA" | "US"; region: HubRegion }>();
-  for (const c of await getRegionCounts()) {
+  for (const c of await getRegionCountsCached()) {
     const r = getRegionByProvinceCode(c.province_state);
     if (!r) continue; // unmapped code — would 404
     const prev = bbaByCode.get(r.slug);
