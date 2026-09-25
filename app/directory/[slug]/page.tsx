@@ -154,7 +154,8 @@ export default async function ListingPage({ params }: Props) {
   const geoLat = Number((listing as { latitude?: number | string | null }).latitude);
   const geoLng = Number((listing as { longitude?: number | string | null }).longitude);
   const geoPrec = (listing as { geo_precision_m?: number | null }).geo_precision_m;
-  const emitGeo =
+  // claimant-edit-ux-stamp-v1: an owner-edited location withholds the rooftop point + map pin (geo_stale).
+  const emitGeo = (listing as { geo_stale?: boolean | null }).geo_stale !== true &&
     geoPrec != null && geoPrec <= 50 &&
     Number.isFinite(geoLat) && Number.isFinite(geoLng) &&
     !(geoLat === 0 && geoLng === 0);
