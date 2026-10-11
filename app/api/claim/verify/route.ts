@@ -4,6 +4,7 @@ import { setAuthCookie } from "@/lib/auth";
 import { evaluateRepublish } from "@/lib/republish-guard";
 import { logRepublishDecision } from "@/lib/republish-audit";
 import { signPlaceResolve } from "@/lib/billing-handoff";
+import { isNameEmailRefusal, withNameEmailReason } from "@/lib/name-email-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -169,6 +170,12 @@ export async function POST(request: NextRequest) {
     .eq("id", listing.id);
 
   if (claimErr) {
+    // name-guard-followthrough-v1 (K395 R1): the DB guard refused to serve a personal email in the
+    // business name. Say so, instead of "the link is invalid or has expired".
+    if (isNameEmailRefusal(claimErr)) {
+      console.error(`[claim/verify] claim write REFUSED by the name-email guard (EMPIRE_NAME_EMAIL_PERSONAL)`);
+      return NextResponse.redirect(withNameEmailReason(claimError(slug)), 303);
+    }
     console.error(`[claim/verify] claim write FAILED for ${slug}: ${claimErr.message}`);
     return NextResponse.redirect(claimError(slug), 303);
   }
