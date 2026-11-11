@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     title: verticalConfig.name,
     description: verticalConfig.description,
     url: SITE_URL,
-    images: [{ url: "/favicon.svg", alt: verticalConfig.name }],
+    images: [{ url: "https://doineedaorthopedicsurgeon.com/og-share.png", width: 1200, height: 630, alt: "DoINeedAOrthopedicSurgeon.com — Orthopedic Surgeon directory" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: verticalConfig.name,
     description: verticalConfig.description,
-    images: ["/favicon.svg"],
+    images: ["https://doineedaorthopedicsurgeon.com/og-share.png"],
   },
 };
 
